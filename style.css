@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box
+}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+button {
+  width: 180px;
+  height: 40px;
+}
+
+#lists > div {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 1em;
+  align-items: center;
+  border: solid 1px tomato;
+  height: 300px;
+  width: 200px;
+}
+
+.names {
+  width: 180px;
+  height: 30px;
+  padding: 6px 0 0 0;
+  margin: 1
+}
+
+.true {
+  background-color: tomato;
+  width: 180px;
+  height: 30px;
+}
+
+.active {
+  background-color: tomato
+}
