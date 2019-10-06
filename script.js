@@ -11,7 +11,42 @@ const first = document.querySelector('#first')
 const second = document.querySelector('#second')
 const third = document.querySelector('#third')
 
+//create buttons and add heading
+slots.forEach((elem) => {
+  const heading = document.createElement('h2')
+  const leftBtn = document.createElement('button')
+  leftBtn.innerHTML = '<'
+  const rightBtn = document.createElement('button')
+  rightBtn.innerHTML = '>'
 
+  if (elem === 'first') {
+    leftBtn.classList.add('firstLeft')
+    rightBtn.classList.add('firstRight', 'active')
+    first.appendChild(leftBtn)
+    first.appendChild(rightBtn)
+
+    heading.innerHTML = 'FIRST'
+    first.appendChild(heading)
+  }
+  if (elem === 'second') {
+    leftBtn.classList.add('secondLeft', 'active')
+    rightBtn.classList.add('secondRight', 'active')
+    second.appendChild(leftBtn)
+    second.appendChild(rightBtn)
+
+    heading.innerHTML = 'SECOND'
+    second.appendChild(heading)
+  }
+  if (elem === 'third') {
+    leftBtn.classList.add('thirdLeft', 'active')
+    rightBtn.classList.add('thirdRight')
+    third.appendChild(leftBtn)
+    third.appendChild(rightBtn)
+
+    heading.innerHTML = 'THIRD'
+    third.appendChild(heading)
+  }
+})
 
 //insert the divs containing the info from the users
 const setPage = (obj) => {

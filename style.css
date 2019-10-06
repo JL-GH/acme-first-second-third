@@ -15,14 +15,19 @@ button {
   height: 40px;
 }
 
+#lists {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
 #lists > div {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   padding: 1em;
   align-items: center;
   border: solid 1px tomato;
-  height: 300px;
-  width: 200px;
+  min-height: 300px;
 }
 
 .names {
