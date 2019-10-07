@@ -10,6 +10,7 @@ const users = [
 const first = document.querySelector('#first')
 const second = document.querySelector('#second')
 const third = document.querySelector('#third')
+const containerArr = [first, second, third]
 
 //create buttons and add heading
 slots.forEach((elem) => {
@@ -48,52 +49,45 @@ slots.forEach((elem) => {
   }
 })
 
-//insert the divs containing the info from the users
+
+/*New modified code to keep order of users below*/
+
+//Add everythign in a list and set display none for default view
 const setPage = (obj) => {
-  for (let i = 0; i < users.length; i++) {
-    const elem = obj[i]
-    const createDiv = document.createElement('div')
-    if (elem.slot === 'first') {
-      // const createDiv = document.createElement('div')
-      createDiv.textContent = elem.name
-      createDiv.id = elem.name
+  slots.forEach((elem) => {
+    for (let i = 0; i < obj.length; i++) {
+      const createDiv = document.createElement('div')
+      const curElem = document.getElementById(elem)
+      let objElem = obj[i]
+      createDiv.innerHTML = objElem.name
+      createDiv.id = objElem.name
       createDiv.classList.add('names')
-      first.appendChild(createDiv)
+      createDiv.style.display = 'none'
+      curElem.appendChild(createDiv)
     }
-    else if (elem.slot === 'second') {
-      // const createDiv = document.createElement('div')
-      createDiv.textContent = elem.name
-      createDiv.id = elem.name
-      createDiv.classList.add('names')
-      second.appendChild(createDiv)
-    }
-    else if (elem.slot === 'third') {
-      // const createDiv = document.createElement('div')
-      createDiv.id = elem.name
-      createDiv.textContent = elem.name
-      createDiv.classList.add('names')
-      if (elem.selected) {
-        createDiv.classList.add(elem.selected)
-        third.appendChild(createDiv)
-      }
-      else {
-        third.appendChild(createDiv)
-      }
-    }
-  }
+  })
 }
 
 //run the function to insert the info into the html
 setPage(users)
 
-//Change the colors when clicked on
-const moe = document.getElementById('moe')
-const larry = document.getElementById('larry')
-const curly = document.getElementById('curly')
-const lucy = document.getElementById('lucy')
-const arrName = [moe, larry, curly, lucy]
+//defaultview
+const testing = document.querySelectorAll('.names')
+const testName = [...testing]
 
-arrName.forEach((elem) => {
+testing.forEach((elem) => {
+  for (let i = 0; i < users.length; i++) {
+    if ((users[i].slot === elem.parentElement.id) && (elem.id === users[i].name)) {
+      elem.style.display = 'block'
+      if (users[i].selected) {
+        elem.classList.add(true)
+      }
+    }
+  }
+})
+
+
+testName.forEach((elem) => {
   elem.addEventListener('click', () => {
     if ([...elem.classList].includes('true')) {
       elem.classList.remove('true')
@@ -104,13 +98,12 @@ arrName.forEach((elem) => {
   })
 })
 
+
 //button event click setup beings...
 const activeButton = document.querySelectorAll('.active')
 const btnArr = [...activeButton]
 
-//loop through each button and add the click event
 btnArr.forEach((elem) => {
-  //in each click event grab all elements with class within the container and append
   elem.addEventListener('click', (ev) => {
     const firstRight = document.querySelector('.firstRight')
     const secondLeft = document.querySelector('.secondleft')
@@ -119,27 +112,149 @@ btnArr.forEach((elem) => {
 
     if (ev.target === firstRight) {
       let selectedArr = [...first.getElementsByClassName('true')]
-      for (let i = 0; i < selectedArr.length; i++) {
-        second.appendChild(selectedArr[i])
+      for (let i = 0; i < selectedArr.length; i ++) {
+        let element = selectedArr[i]
+        if (first.querySelector(`#${element.innerHTML}`).style.display === 'block') {
+          element.style.display = 'none'
+          second.querySelector(`#${element.innerHTML}`).style.display = 'block'
+          second.querySelector(`#${element.innerHTML}`).classList.add('true')
+        }
       }
     }
+
     if (ev.target === secondLeft) {
       let selectedArr = [...second.getElementsByClassName('true')]
-      for (let i = 0; i < selectedArr.length; i++) {
-        first.appendChild(selectedArr[i])
+      for (let i = 0; i < selectedArr.length; i ++) {
+        let element = selectedArr[i]
+        if (second.querySelector(`#${element.innerHTML}`).style.display === 'block') {
+          element.style.display = 'none'
+          first.querySelector(`#${element.innerHTML}`).style.display = 'block'
+          first.querySelector(`#${element.innerHTML}`).classList.add('true')
+        }
       }
     }
+
     if (ev.target === secondRight) {
       let selectedArr = [...second.getElementsByClassName('true')]
-      for (let i = 0; i < selectedArr.length; i++) {
-        third.appendChild(selectedArr[i])
+      for (let i = 0; i < selectedArr.length; i ++) {
+        let element = selectedArr[i]
+        if (second.querySelector(`#${element.innerHTML}`).style.display === 'block') {
+          element.style.display = 'none'
+          third.querySelector(`#${element.innerHTML}`).style.display = 'block'
+          third.querySelector(`#${element.innerHTML}`).classList.add('true')
+        }
       }
     }
+
     if (ev.target === thirdLeft) {
       let selectedArr = [...third.getElementsByClassName('true')]
-      for (let i = 0; i < selectedArr.length; i++) {
-        second.appendChild(selectedArr[i])
+      for (let i = 0; i < selectedArr.length; i ++) {
+        let element = selectedArr[i]
+        if (third.querySelector(`#${element.innerHTML}`).style.display === 'block') {
+          element.style.display = 'none'
+          second.querySelector(`#${element.innerHTML}`).style.display = 'block'
+          second.querySelector(`#${element.innerHTML}`).classList.add('true')
+        }
       }
     }
   })
 })
+
+//------------------------------------------------------------------------------------------------------------
+
+/*Original code below does not keep the format of the list of users to match that of the users object*/
+
+// //insert the divs containing the info from the users
+// const setPage = (obj) => {
+//   for (let i = 0; i < users.length; i++) {
+//     const elem = obj[i]
+//     const createDiv = document.createElement('div')
+//     if (elem.slot === 'first') {
+//       createDiv.textContent = elem.name
+//       createDiv.id = elem.name
+//       createDiv.classList.add('names')
+//       first.appendChild(createDiv)
+//     }
+//     else if (elem.slot === 'second') {
+//       createDiv.textContent = elem.name
+//       createDiv.id = elem.name
+//       createDiv.classList.add('names')
+//       second.appendChild(createDiv)
+//     }
+//     else if (elem.slot === 'third') {
+//       createDiv.id = elem.name
+//       createDiv.textContent = elem.name
+//       createDiv.classList.add('names')
+//       if (elem.selected) {
+//         createDiv.classList.add(elem.selected)
+//         third.appendChild(createDiv)
+//       }
+//       else {
+//         third.appendChild(createDiv)
+//       }
+//     }
+//   }
+// }
+
+
+
+// //run the function to insert the info into the html
+// setPage(users)
+
+// //Change the colors when clicked on
+// const moe = document.getElementById('moe')
+// const larry = document.getElementById('larry')
+// const curly = document.getElementById('curly')
+// const lucy = document.getElementById('lucy')
+// const arrName = [moe, larry, curly, lucy]
+
+// arrName.forEach((elem) => {
+//   elem.addEventListener('click', () => {
+//     if ([...elem.classList].includes('true')) {
+//       elem.classList.remove('true')
+//     }
+//     else if (![...elem.classList].includes('true')) {
+//       elem.classList.add('true')
+//     }
+//   })
+// })
+
+// //button event click setup beings...
+// const activeButton = document.querySelectorAll('.active')
+// const btnArr = [...activeButton]
+
+// //loop through each button and add the click event
+// btnArr.forEach((elem) => {
+//   //in each click event grab all elements with class within the container and append
+//   elem.addEventListener('click', (ev) => {
+//     const firstRight = document.querySelector('.firstRight')
+//     const secondLeft = document.querySelector('.secondleft')
+//     const secondRight = document.querySelector('.secondRight')
+//     const thirdLeft = document.querySelector('.thirdLeft')
+
+//     if (ev.target === firstRight) {
+//       let selectedArr = [...first.getElementsByClassName('true')]
+//       for (let i = 0; i < selectedArr.length; i++) {
+//         second.appendChild(selectedArr[i])
+//       }
+//     }
+//     if (ev.target === secondLeft) {
+//       let selectedArr = [...second.getElementsByClassName('true')]
+//       for (let i = 0; i < selectedArr.length; i++) {
+//         first.appendChild(selectedArr[i])
+//       }
+//     }
+//     if (ev.target === secondRight) {
+//       let selectedArr = [...second.getElementsByClassName('true')]
+//       for (let i = 0; i < selectedArr.length; i++) {
+//         third.appendChild(selectedArr[i])
+//       }
+//     }
+//     if (ev.target === thirdLeft) {
+//       let selectedArr = [...third.getElementsByClassName('true')]
+//       for (let i = 0; i < selectedArr.length; i++) {
+//         second.appendChild(selectedArr[i])
+//       }
+//     }
+//   })
+// })
